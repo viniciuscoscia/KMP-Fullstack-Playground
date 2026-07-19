@@ -14,10 +14,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import kmp_fullstack_playground.app.shared.generated.resources.Res
+import kmp_fullstack_playground.app.shared.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.painterResource
-
-import kmpfullstackplayground.app.shared.generated.resources.Res
-import kmpfullstackplayground.app.shared.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
