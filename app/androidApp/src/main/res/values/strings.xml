@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">KMP Fullstack Playground</string>
+
+    <!-- Topic #5 — default (light) value; overridden in values-night/ and values-de/ -->
+    <string name="resources_greeting">Hello from the default resources!</string>
+
+    <!-- Topic #5 — plural chosen automatically by quantity -->
+    <plurals name="apple_count">
+        <item quantity="one">%d apple</item>
+        <item quantity="other">%d apples</item>
+    </plurals>
 </resources>

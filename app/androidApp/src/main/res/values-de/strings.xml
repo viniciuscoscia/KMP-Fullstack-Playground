@@ -1,0 +1,4 @@
+<resources>
+    <!-- Topic #5 — used when the device language is German -->
+    <string name="resources_greeting">Hallo aus den deutschen Ressourcen!</string>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <!-- Topic #5 — screens at least 600dp wide (tablets) get more generous padding -->
+    <dimen name="demo_card_padding">32dp</dimen>
+</resources>

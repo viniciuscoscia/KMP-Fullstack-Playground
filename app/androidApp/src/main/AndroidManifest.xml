@@ -1,22 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Foreground service (topic #8): FOREGROUND_SERVICE + the type-specific permission -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <!-- Notifications (topics #7/#8) are a runtime permission on Android 13+ -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
+        android:name=".foregroundservices.RunningApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@android:style/Theme.Material.Light.NoActionBar">
+
+        <!-- Launcher / table of contents -->
         <activity
-            android:exported="true"
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
 
+        <!-- #1 Activities & the Activity Lifecycle -->
+        <activity android:name=".lifecycle.LifecycleActivity" android:exported="false" />
+
+        <!-- #2 Tasks, Back Stack & Launch Modes -->
+        <activity android:name=".launchmodes.LaunchModesActivity" android:exported="false" />
+        <activity
+            android:name=".launchmodes.SingleTopActivity"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".launchmodes.SingleTaskActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
+
+        <!-- #3 ViewModels & Configuration Changes -->
+        <activity android:name=".viewmodels.ViewModelActivity" android:exported="false" />
+
+        <!-- #4 What is the Context? -->
+        <activity android:name=".contextdemo.ContextActivity" android:exported="false" />
+
+        <!-- #5 Resources & Qualifiers -->
+        <activity android:name=".resourcesdemo.ResourcesActivity" android:exported="false" />
+
+        <!-- #6 Intents & Intent Filters -->
+        <activity android:name=".intents.IntentsActivity" android:exported="false" />
+        <activity android:name=".intents.SecondActivity" android:exported="false" />
+        <activity
+            android:name=".intents.DeepLinkActivity"
+            android:exported="true">
+            <!-- Opened by links like androidbasics://intents/... from outside the app -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="androidbasics" android:host="intents" />
+            </intent-filter>
+        </activity>
+
+        <!-- #7 Broadcasts & Broadcast Receivers -->
+        <activity android:name=".broadcastreceiver.BroadcastActivity" android:exported="false" />
+        <receiver android:name=".broadcastreceiver.AirPlaneModeReceiver" android:exported="false" />
+
+        <!-- #8 Foreground Services -->
+        <activity android:name=".foregroundservices.ForegroundServiceActivity" android:exported="false" />
+        <service
+            android:name=".foregroundservices.RunningService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!-- #9 WorkManager (template) -->
+        <activity android:name=".workmanager.WorkManagerActivity" android:exported="false" />
+
+        <!-- #10 Uris (template) -->
+        <activity android:name=".uris.UrisActivity" android:exported="false" />
+
+        <!-- #11 Content Providers (template) -->
+        <activity android:name=".contentproviders.ContentProvidersActivity" android:exported="false" />
+    </application>
 </manifest>

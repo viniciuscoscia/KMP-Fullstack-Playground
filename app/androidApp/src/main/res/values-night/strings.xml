@@ -1,0 +1,4 @@
+<resources>
+    <!-- Topic #5 — used when the system is in dark mode -->
+    <string name="resources_greeting">Hello from the DARK (night) resources!</string>
+</resources>

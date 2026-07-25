@@ -12,9 +12,19 @@ kotlin {
     }
 }
 dependencies {
+    implementation(libs.androidx.work.runtime.ktx)
     implementation(projects.app.shared)
 
     implementation(libs.androidx.activity.compose)
+
+    // Compose so the Android module can host its own per-topic UI (shared exposes these only as
+    // `implementation`, so they are not visible here transitively).
+    implementation(libs.compose.runtime)
+    implementation(libs.compose.foundation)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui)
+    implementation(libs.androidx.lifecycle.viewmodelCompose)
+    implementation(libs.androidx.lifecycle.runtimeCompose)
 
     implementation(libs.compose.uiToolingPreview)
     debugImplementation(libs.compose.uiTooling)
