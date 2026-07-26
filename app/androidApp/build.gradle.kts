@@ -25,6 +25,10 @@ dependencies {
     implementation(libs.compose.ui)
     implementation(libs.androidx.lifecycle.viewmodelCompose)
     implementation(libs.androidx.lifecycle.runtimeCompose)
+    implementation(libs.androidx.compose.runtimeLivedata)
+
+    // Coil 3 — image loading for Compose (AsyncImage); previews photos in the WorkManager demo.
+    implementation(libs.coil.compose)
 
     implementation(libs.compose.uiToolingPreview)
     debugImplementation(libs.compose.uiTooling)
