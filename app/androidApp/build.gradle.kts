@@ -16,6 +16,8 @@ dependencies {
     implementation(projects.app.shared)
 
     implementation(libs.androidx.activity.compose)
+    // FileProvider + the Uri/File KTX extensions used by the Uris demo (topic #10).
+    implementation(libs.androidx.core.ktx)
 
     // Compose so the Android module can host its own per-topic UI (shared exposes these only as
     // `implementation`, so they are not visible here transitively).

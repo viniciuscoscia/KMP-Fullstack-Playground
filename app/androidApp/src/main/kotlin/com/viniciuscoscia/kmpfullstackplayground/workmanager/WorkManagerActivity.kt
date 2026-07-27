@@ -42,7 +42,6 @@ class WorkManagerActivity : ComponentActivity() {
             PlaygroundTheme {
                 val workerResult = viewModel.workId?.let {id ->
                     workManager.getWorkInfoByIdLiveData(id = id).observeAsState().value
-                    
                 }
                 LaunchedEffect(workerResult?.outputData) {
                     if (workerResult?.outputData != null) {

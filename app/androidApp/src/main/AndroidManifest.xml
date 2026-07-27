@@ -78,8 +78,22 @@
         <!-- #9 WorkManager (template) -->
         <activity android:name=".workmanager.WorkManagerActivity" android:exported="false" />
 
-        <!-- #10 Uris (template) -->
+        <!-- #10 Uris -->
         <activity android:name=".uris.UrisActivity" android:exported="false" />
+        <!--
+            Turns a private file into a content:// uri other apps can read.
+            `grantUriPermissions` is what makes FLAG_GRANT_READ_URI_PERMISSION effective, and
+            exported must stay false — access is granted per-uri, never wholesale.
+        -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <!-- #11 Content Providers -->
         <activity android:name=".contentproviders.ContentProvidersActivity" android:exported="false" />

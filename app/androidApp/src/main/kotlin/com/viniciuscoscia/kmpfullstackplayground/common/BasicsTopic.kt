@@ -39,8 +39,8 @@ data class BasicsTopic(
             BasicsTopic(6, "Intents & Intent Filters", "Explicit, implicit & deep links", IntentsActivity::class.java),
             BasicsTopic(7, "Broadcasts & Receivers", "System & custom broadcasts", BroadcastActivity::class.java),
             BasicsTopic(8, "Foreground Services", "A stopwatch with a live notification", ForegroundServiceActivity::class.java),
-            BasicsTopic(9, "WorkManager", "Template — to be implemented", WorkManagerActivity::class.java, Status.TEMPLATE),
-            BasicsTopic(10, "Uris", "Template — to be implemented", UrisActivity::class.java, Status.TEMPLATE),
+            BasicsTopic(9, "WorkManager", "Template — to be implemented", WorkManagerActivity::class.java),
+            BasicsTopic(10, "Uris", "resource:// vs file:// vs content://", UrisActivity::class.java),
             BasicsTopic(11, "Content Providers", "Resolver, URIs, Cursor & CRUD", ContentProvidersActivity::class.java),
         )
     }

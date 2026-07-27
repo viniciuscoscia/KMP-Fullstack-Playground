@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Topic #10 — the whitelist a FileProvider serves.
+
+    Every entry maps one private directory to a public path segment. `files-path` is
+    Context.filesDir, so the file <filesDir>/shared_images/sample_photo.png becomes
+    content://<applicationId>.fileprovider/shared_images/sample_photo.png
+
+    Anything outside these roots is refused, which is the whole point: other apps get a
+    door to exactly the folders you list, never to your data directory.
+-->
+<paths>
+    <files-path name="shared_images" path="shared_images/" />
+    <cache-path name="shared_cache" path="shared/" />
+</paths>
