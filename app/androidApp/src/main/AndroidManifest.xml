@@ -81,7 +81,15 @@
         <!-- #10 Uris (template) -->
         <activity android:name=".uris.UrisActivity" android:exported="false" />
 
-        <!-- #11 Content Providers (template) -->
+        <!-- #11 Content Providers -->
         <activity android:name=".contentproviders.ContentProvidersActivity" android:exported="false" />
+        <!--
+            This provider is intentionally app-private. Export a provider only when another app
+            needs it, then add least-privilege read/write permissions or URI grants.
+        -->
+        <provider
+            android:name=".contentproviders.ContactsProvider"
+            android:authorities="com.viniciuscoscia.kmpfullstackplayground.contacts"
+            android:exported="false" />
     </application>
 </manifest>

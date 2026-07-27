@@ -41,7 +41,7 @@ data class BasicsTopic(
             BasicsTopic(8, "Foreground Services", "A stopwatch with a live notification", ForegroundServiceActivity::class.java),
             BasicsTopic(9, "WorkManager", "Template — to be implemented", WorkManagerActivity::class.java, Status.TEMPLATE),
             BasicsTopic(10, "Uris", "Template — to be implemented", UrisActivity::class.java, Status.TEMPLATE),
-            BasicsTopic(11, "Content Providers", "Template — to be implemented", ContentProvidersActivity::class.java, Status.TEMPLATE),
+            BasicsTopic(11, "Content Providers", "Resolver, URIs, Cursor & CRUD", ContentProvidersActivity::class.java),
         )
     }
 }
