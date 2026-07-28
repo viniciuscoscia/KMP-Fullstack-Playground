@@ -31,7 +31,7 @@ import com.viniciuscoscia.kmpfullstackplayground.common.BasicsTopic
 import com.viniciuscoscia.kmpfullstackplayground.common.PlaygroundTheme
 
 /**
- * Launcher / table of contents for the Android Basics 2023 showcase.
+ * Launcher / table of contents for the Android showcase, one section per PL-Coding course.
  *
  * Instead of bundling every demo into one screen, each topic lives in its own Activity. This screen
  * lists them and starts the chosen one with an **explicit Intent** — `Intent(this, X::class.java)` —
@@ -61,19 +61,23 @@ private fun TopicList(topics: List<BasicsTopic>, onTopicClick: (BasicsTopic) -> 
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        item {
-            Column {
-                Text(
-                    "Android Basics 2023",
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.Bold,
-                )
-                Text("One Activity per topic", style = MaterialTheme.typography.bodyMedium)
-                Spacer(Modifier.size(8.dp))
+        // `groupBy` preserves encounter order, and BasicsTopic.all is ordered by course, so the
+        // sections come out in the enum's declaration order without an extra sort.
+        topics.groupBy { it.course }.forEach { (course, courseTopics) ->
+            item(key = course.name) {
+                Column {
+                    Text(
+                        course.label,
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                    )
+                    Text(course.tagline, style = MaterialTheme.typography.bodyMedium)
+                    Spacer(Modifier.size(8.dp))
+                }
             }
-        }
-        items(topics) { topic ->
-            TopicCard(topic = topic, onClick = { onTopicClick(topic) })
+            items(courseTopics) { topic ->
+                TopicCard(topic = topic, onClick = { onTopicClick(topic) })
+            }
         }
     }
 }

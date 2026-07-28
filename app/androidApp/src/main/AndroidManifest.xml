@@ -105,5 +105,29 @@
             android:name=".contentproviders.ContactsProvider"
             android:authorities="com.viniciuscoscia.kmpfullstackplayground.contacts"
             android:exported="false" />
+
+        <!-- Android Internals §2 Android OS System Architecture (template, Main Thread/Looper/MessageQueue in progress) -->
+        <activity android:name=".osarchitecture.OsArchitectureActivity" android:exported="false" />
+
+        <!-- Android Internals #3 Activities Under the Hood (template) -->
+        <activity android:name=".activitiesinternals.ActivitiesInternalsActivity" android:exported="false" />
+
+        <!-- Android Internals #4 ViewModels (template) -->
+        <activity android:name=".viewmodelinternals.ViewModelInternalsActivity" android:exported="false" />
+
+        <!-- Android Internals #5 UI & The View System (template) -->
+        <activity android:name=".viewsystem.ViewSystemActivity" android:exported="false" />
+
+        <!-- Android Internals #6 Inter Process Communication (IPC) (template) -->
+        <activity android:name=".ipc.IpcActivity" android:exported="false" />
+
+        <!-- Android Internals #7 Android's Security System (template) -->
+        <activity android:name=".security.SecurityActivity" android:exported="false" />
+
+        <!-- Android Internals #8 Memory Management (template) -->
+        <activity android:name=".memory.MemoryActivity" android:exported="false" />
+
+        <!-- Android Internals #9 Battery Management (template) -->
+        <activity android:name=".battery.BatteryActivity" android:exported="false" />
     </application>
 </manifest>
