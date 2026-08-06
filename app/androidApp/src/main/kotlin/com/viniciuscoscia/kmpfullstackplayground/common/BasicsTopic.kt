@@ -63,7 +63,7 @@ data class BasicsTopic(
             BasicsTopic(11, "Content Providers", "Resolver, URIs, Cursor & CRUD", ContentProvidersActivity::class.java),
 
             // Android Internals — one entry per course section.
-            BasicsTopic(2, "Android OS System Architecture", "Main Thread, Looper, MessageQueue & Handlers", OsArchitectureActivity::class.java, Course.INTERNALS, Status.TEMPLATE),
+            BasicsTopic(2, "Android OS System Architecture", "Main Thread, Looper & MessageQueue", OsArchitectureActivity::class.java, Course.INTERNALS, Status.TEMPLATE),
             BasicsTopic(3, "Activities Under the Hood", "Template — to be implemented", ActivitiesInternalsActivity::class.java, Course.INTERNALS, Status.TEMPLATE),
             BasicsTopic(4, "ViewModels", "Template — to be implemented", ViewModelInternalsActivity::class.java, Course.INTERNALS, Status.TEMPLATE),
             BasicsTopic(5, "UI & The View System", "Template — to be implemented", ViewSystemActivity::class.java, Course.INTERNALS, Status.TEMPLATE),
