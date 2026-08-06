@@ -1,0 +1,67 @@
+server:
+  address: ${SERVER_ADDRESS:127.0.0.1}
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+
+spring:
+  application:
+    name: substance-atlas-server
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://127.0.0.1:5432/substance_atlas}
+    username: ${DATABASE_USER:substance_atlas}
+    password: ${DATABASE_PASSWORD:substance_atlas_local}
+  flyway:
+    locations: classpath:db/migration/common,classpath:db/migration/{vendor}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        format_sql: false
+  ai:
+    mcp:
+      server:
+        enabled: true
+        name: substance-atlas
+        version: 1.0.0
+        protocol: STREAMABLE
+        type: SYNC
+        annotation-scanner:
+          enabled: true
+        streamable-http:
+          mcp-endpoint: /mcp
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+substance-atlas:
+  import:
+    enabled: ${SUBSTANCE_ATLAS_IMPORT_ENABLED:false}
+    source-path: ${SUBSTANCE_ATLAS_IMPORT_SOURCE_PATH:.local/import/marketplace.txt}
+    source-name: ${SUBSTANCE_ATLAS_IMPORT_SOURCE_NAME:Local marketplace capture}
+    expected-observations: ${SUBSTANCE_ATLAS_IMPORT_EXPECTED_OBSERVATIONS:447}
+  security:
+    admin-token: ${LOCAL_ADMIN_TOKEN:}
+  reporting:
+    template-path: ${ANALYTICS_TEMPLATE_PATH:.local/templates/substance-atlas-dashboard.xlsx}
+  research:
+    live-enabled: ${RESEARCH_LIVE_ENABLED:false}
+    fixed-delay: ${RESEARCH_FIXED_DELAY:3000}
+    connect-timeout: 3s
+    read-timeout: 8s
+    max-response-bytes: 1000000
+
+logging:
+  level:
+    root: INFO
+    org.hibernate.SQL: WARN

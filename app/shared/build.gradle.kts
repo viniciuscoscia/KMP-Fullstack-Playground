@@ -16,6 +16,8 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
+            export(projects.features.substanceCatalog.client)
+            export(projects.features.substanceCatalog.contract)
         }
     }
     
@@ -52,14 +54,18 @@ kotlin {
         }
         commonMain.dependencies {
             api(projects.core)
+            api(projects.features.substanceCatalog.client)
+            api(projects.features.substanceCatalog.contract)
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
+            implementation(libs.compose.materialIconsExtended)
             implementation(libs.compose.ui)
             implementation(libs.compose.components.resources)
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.kotlinx.coroutines)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
