@@ -13,7 +13,6 @@ kotlin {
 }
 dependencies {
     implementation(libs.androidx.work.runtime.ktx)
-    implementation(projects.app.shared)
 
     implementation(libs.androidx.activity.compose)
     // FileProvider + the Uri/File KTX extensions used by the Uris demo (topic #10).
@@ -34,6 +33,8 @@ dependencies {
 
     implementation(libs.compose.uiToolingPreview)
     debugImplementation(libs.compose.uiTooling)
+
+    testImplementation(libs.junit)
 }
 
 android {

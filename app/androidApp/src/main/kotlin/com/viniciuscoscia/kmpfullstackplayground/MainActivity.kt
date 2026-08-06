@@ -46,7 +46,9 @@ class MainActivity : ComponentActivity() {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     TopicList(
                         topics = BasicsTopic.all,
-                        onTopicClick = { topic -> startActivity(Intent(this, topic.activityClass)) },
+                        onTopicClick = { topic ->
+                            startActivity(Intent(this, topic.activityClass))
+                        },
                     )
                 }
             }

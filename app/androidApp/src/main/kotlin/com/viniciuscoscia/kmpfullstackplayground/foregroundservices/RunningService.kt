@@ -3,6 +3,7 @@ package com.viniciuscoscia.kmpfullstackplayground.foregroundservices
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Intent
+import android.os.SystemClock
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import com.viniciuscoscia.kmpfullstackplayground.R
@@ -12,7 +13,9 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 /**
  * Topic #8 — Foreground Services.
@@ -27,29 +30,49 @@ import kotlinx.coroutines.launch
 class RunningService : Service() {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+    private var tickerJob: Job? = null
+    private var startedAtElapsedRealtimeMillis = 0L
 
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             Actions.START.toString() -> start()
-            Actions.STOP.toString() -> stopSelf()
+            Actions.STOP.toString() -> stop()
         }
-        return super.onStartCommand(intent, flags, startId)
+        return START_NOT_STICKY
     }
 
     private fun start() {
+        if (tickerJob?.isActive == true) return
+
+        startedAtElapsedRealtimeMillis = SystemClock.elapsedRealtime()
         // Must call startForeground quickly after the service starts, or the system kills it.
         startForeground(NOTIFICATION_ID, buildNotification(elapsedSeconds = 0))
 
-        serviceScope.launch {
-            var seconds = 0L
+        tickerJob = serviceScope.launch {
             while (isActive) {
-                delay(1000)
-                seconds++
-                notificationManager().notify(NOTIFICATION_ID, buildNotification(seconds))
+                delay(millisUntilNextSecond())
+                notificationManager().notify(NOTIFICATION_ID, buildNotification(elapsedSeconds()))
             }
         }
+    }
+
+    private fun stop() {
+        tickerJob?.cancel()
+        tickerJob = null
+        stopForeground(STOP_FOREGROUND_REMOVE)
+        stopSelf()
+    }
+
+    private fun elapsedSeconds(): Long =
+        ((SystemClock.elapsedRealtime() - startedAtElapsedRealtimeMillis) / ONE_SECOND_MILLIS)
+            .coerceAtLeast(0L)
+
+    private fun millisUntilNextSecond(): Long {
+        val elapsedMillis = (SystemClock.elapsedRealtime() - startedAtElapsedRealtimeMillis)
+            .coerceAtLeast(0L)
+        return ONE_SECOND_MILLIS - (elapsedMillis % ONE_SECOND_MILLIS)
     }
 
     private fun buildNotification(elapsedSeconds: Long) =
@@ -65,24 +88,25 @@ class RunningService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        tickerJob?.cancel()
+        tickerJob = null
         serviceScope.cancel()
-    }
-
-    /**
-     * Formats an elapsed duration in seconds as `mm:ss` for the notification
-     * (e.g. `65` → `"01:05"`, `600` → `"10:00"`).
-     */
-    private fun formatElapsed(totalSeconds: Long): String {
-        // TODO(human): return totalSeconds formatted as mm:ss — minutes and seconds, both
-        //  zero-padded to two digits. Hint: minutes = totalSeconds / 60, seconds = totalSeconds % 60,
-        //  and String.format("%02d", ...) zero-pads.
-        return TODO("Implement mm:ss formatting")
     }
 
     enum class Actions { START, STOP }
 
     companion object {
+        private const val ONE_SECOND_MILLIS = 1_000L
         const val CHANNEL_ID = "running_channel"
         const val NOTIFICATION_ID = 1
     }
+}
+
+/**
+ * Formats elapsed stopwatch time as `mm:ss` for the foreground-service notification.
+ */
+internal fun formatElapsed(totalSeconds: Long): String {
+    val minutes = totalSeconds / 60
+    val seconds = totalSeconds % 60
+    return String.format(Locale.US, "%02d:%02d", minutes, seconds)
 }

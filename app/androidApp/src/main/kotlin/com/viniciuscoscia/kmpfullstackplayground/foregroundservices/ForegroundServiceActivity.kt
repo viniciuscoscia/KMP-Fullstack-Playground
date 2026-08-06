@@ -1,13 +1,16 @@
 package com.viniciuscoscia.kmpfullstackplayground.foregroundservices
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -56,10 +59,11 @@ private fun ForegroundServiceScreen() {
         )
         Button(
             onClick = {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (shouldRequestNotificationPermission(context)) {
                     notificationPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
                 }
-                context.startService(
+                ContextCompat.startForegroundService(
+                    context,
                     Intent(context, RunningService::class.java)
                         .setAction(RunningService.Actions.START.toString()),
                 )
@@ -78,3 +82,10 @@ private fun ForegroundServiceScreen() {
         ) { Text("Stop service") }
     }
 }
+
+private fun shouldRequestNotificationPermission(context: Context): Boolean =
+    Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+        ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.POST_NOTIFICATIONS,
+        ) != PackageManager.PERMISSION_GRANTED
