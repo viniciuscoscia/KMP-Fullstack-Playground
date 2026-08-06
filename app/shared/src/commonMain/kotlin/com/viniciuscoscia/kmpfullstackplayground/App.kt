@@ -1,48 +1,28 @@
 package com.viniciuscoscia.kmpfullstackplayground
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import kmp_fullstack_playground.app.shared.generated.resources.Res
-import kmp_fullstack_playground.app.shared.generated.resources.compose_multiplatform
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import com.viniciuscoscia.kmpfullstackplayground.substance.atlas.SubstanceAtlasShell
+import com.viniciuscoscia.kmpfullstackplayground.substance.atlas.SubstanceAtlasViewModel
+import com.viniciuscoscia.kmpfullstackplayground.substance.client.SubstanceAtlasConfig
+import com.viniciuscoscia.kmpfullstackplayground.substance.client.SubstanceAtlasRepositories
 
 @Composable
-@Preview
-fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
-        }
+fun App(
+    onOpenAndroidBasics: (() -> Unit)? = null,
+) {
+    val scope = rememberCoroutineScope()
+    val repositories = remember {
+        SubstanceAtlasRepositories(SubstanceAtlasConfig(defaultServerBaseUrl()))
     }
+    val viewModel = remember(repositories, scope) {
+        SubstanceAtlasViewModel(
+            catalog = repositories.catalog,
+            research = repositories.research,
+            reports = repositories.reports,
+            scope = scope,
+        )
+    }
+    SubstanceAtlasShell(viewModel, onOpenAndroidBasics)
 }

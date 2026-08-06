@@ -7,3 +7,5 @@ class IOSPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
+
+actual fun defaultServerBaseUrl(): String = "http://127.0.0.1:8080"
