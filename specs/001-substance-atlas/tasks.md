@@ -1,0 +1,22 @@
+# Milestone Tasks
+
+- [x] M1 Protect worktree and pass baseline.
+- [x] M2 Constitution, feature specification, rubric, and acceptance criteria.
+- [x] M3 ADRs, OpenAPI, and MCP contract.
+- [ ] M4 Akira record and Todoist workflow.
+- [x] M5 Two KMP feature modules.
+- [ ] M6 Spring Boot modular monolith.
+- [ ] M7 PostgreSQL migrations and fixtures.
+- [ ] M8 REST APIs and shared repositories.
+- [ ] M9 Private marketplace import with complete accounting.
+- [ ] M10 Durable jobs and source adapters.
+- [ ] M11 Scoring, revisions, and approval.
+- [ ] M12 Representative synthetic pilot.
+- [ ] M13 Complete private catalog coverage run.
+- [ ] M14 Showcase shell and presentation state.
+- [ ] M15 Desktop/Web workbench.
+- [ ] M16 Adaptive Android workbench.
+- [ ] M17 Native SwiftUI/iPadOS workbench.
+- [ ] M18 Secured MCP server.
+- [ ] M19 Analytics workbook.
+- [ ] M20 Hardening and Docker deployment.
